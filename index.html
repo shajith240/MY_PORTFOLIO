@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shajith's Portfolio</title>
+    <meta name="description" content="Shajith's professional portfolio showcasing AI automation, web development, and computer science projects.">
+    <meta name="keywords" content="Shajith, AI Automation, Web Development, Portfolio, Computer Science, IIT(ISM) Dhanbad">
+    <meta property="og:title" content="Shajith's Portfolio">
+    <meta property="og:description" content="Shajith's professional portfolio showcasing AI automation, web development, and computer science projects.">
+    <meta property="og:image" content="assets/profile_picture.jpg">
+    <meta property="og:url" content="https://yourportfolio.com">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css" />
+    <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
 </head>
 <body>
     <header class="navbar">
@@ -16,33 +26,58 @@
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button id="theme-toggle" class="btn small-btn">
+                <i class="fas fa-moon"></i>
+            </button>
         </nav>
     </header>
 
     <main>
         <section id="hero" class="hero-section">
+            <canvas id="starfield-canvas"></canvas>
             <div class="container">
                 <div class="hero-content">
-                    <h1>Hi, I'm Shajith</h1>
-                    <p class="tagline">A passionate [Your Profession/Role] crafting elegant solutions.</p>
+                    <h1>Hi <lord-icon
+    class="dark-theme-lordicon"
+    src="https://cdn.lordicon.com/zubhquzc.json"
+    trigger="loop"
+    delay="500"
+    stroke="light"
+    colors="primary:#ffffff,secondary:#9cf4a7"
+    style="width:100px;height:100px">
+</lord-icon><lord-icon
+    class="light-theme-lordicon"
+    src="https://cdn.lordicon.com/zubhquzc.json"
+    trigger="loop"
+    delay="500"
+    stroke="light"
+    style="width:100px;height:100px">
+</lord-icon>, I'm Shajith</h1>
+                    <p class="tagline">AI Automation Specialist | Future AI Developer</p>
                     <button class="btn primary-btn">Explore My Work</button>
                     <button class="btn secondary-btn">Get In Touch</button>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/profile_picture.jpg" alt="Shajith's Profile Picture">
+                    <img src="assets/profile_picture.jpg" alt="Shajith's Profile Picture" loading="lazy">
                 </div>
             </div>
         </section>
 
         <section id="about" class="about-section section-padding">
             <div class="container">
-                <h2>About Me</h2>
-                <p>As an AI Automation Specialist, I design and deploy pre-built workflow templates to help businesses streamline operations and save valuable time. Leveraging tools like n8n, Zapier, and Make.com, I have developed over 100 automation solutions, addressing needs such as social media management, email marketing, and customer service. These solutions have achieved a 95% client satisfaction rate and significantly reduced manual processes for clients.</p>
-                <p>Currently pursuing a B.Tech in Computer Science at IIT(ISM) Dhanbad, I focus on AI and automation. My academic foundation in algorithms, programming, and cybersecurity complements my professional work. Passionate about innovation, I aim to empower businesses with scalable, no-code automation tools, fostering efficiency and growth.</p>
+                <div class="about-content-wrapper">
+                    <div class="about-image-container">
+                        <img id="memoji-transition" src="assets/variation 1.svg" alt="Shajith's Memoji" class="about-memoji" loading="lazy">
+                    </div>
+                    <div class="about-text-container">
+                        <h2>About Me</h2>
+                        <p>As an AI Automation Specialist and a B.Tech Computer Science student at IIT(ISM) Dhanbad, I leverage tools like n8n, Zapier, and Make.com to design and deploy over 100 automation solutions. My expertise in AI, algorithms, and cybersecurity enables me to streamline business operations, achieving a 95% client satisfaction rate and significantly reducing manual processes. I am passionate about empowering businesses with scalable, no-code automation tools to foster efficiency and growth.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -50,28 +85,79 @@
             <div class="container">
                 <h2>Skills & Expertise</h2>
                 <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-code"></i> Programming Languages</h3>
-                        <ul>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <lord-icon
+                                class="dark-theme-skill-icon"
+                                src="https://cdn.lordicon.com/gvtjlyjf.json"
+                                trigger="loop"
+                                delay="500"
+                                colors="primary:#ffffff,secondary:#30c9e8"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                            <lord-icon
+                                class="light-theme-skill-icon"
+                                src="https://cdn.lordicon.com/gvtjlyjf.json"
+                                trigger="loop"
+                                delay="500"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="skill-title">Programming Languages</h3>
+                        <ul class="skill-list">
                             <li>Python</li>
                             <li>JavaScript</li>
                             <li>HTML5</li>
                             <li>CSS3</li>
                         </ul>
                     </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-cogs"></i> Automation & Tools</h3>
-                        <ul>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <lord-icon
+                                class="dark-theme-automation-icon"
+                                src="https://cdn.lordicon.com/nfuackpv.json"
+                                trigger="loop"
+                                delay="500"
+                                colors="primary:#ffffff,secondary:#08a88a"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                            <lord-icon
+                                class="light-theme-automation-icon"
+                                src="https://cdn.lordicon.com/nfuackpv.json"
+                                trigger="loop"
+                                delay="500"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="skill-title">Automation & Tools</h3>
+                        <ul class="skill-list">
                             <li>n8n Automation</li>
                             <li>Zapier</li>
                             <li>Make.com</li>
-                            <li>Application Programming Interfaces (API)</li>
+                            <li>API</li>
                             <li>Business Process Automation</li>
                         </ul>
                     </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-lightbulb"></i> Concepts & Fields</h3>
-                        <ul>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <lord-icon
+                                class="dark-theme-concepts-icon"
+                                src="https://cdn.lordicon.com/srupsmbe.json"
+                                trigger="loop"
+                                delay="500"
+                                colors="primary:#ffffff,secondary:#08a88a"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                            <lord-icon
+                                class="light-theme-concepts-icon"
+                                src="https://cdn.lordicon.com/srupsmbe.json"
+                                trigger="loop"
+                                delay="500"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="skill-title">Concepts & Fields</h3>
+                        <ul class="skill-list">
                             <li>Artificial Intelligence (AI)</li>
                             <li>Algorithms</li>
                             <li>Data Structures</li>
@@ -79,9 +165,26 @@
                             <li>Web Development</li>
                         </ul>
                     </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-users"></i> Soft Skills</h3>
-                        <ul>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <lord-icon
+                                class="dark-theme-soft-skills-icon"
+                                src="https://cdn.lordicon.com/ncmnezgk.json"
+                                trigger="loop"
+                                delay="500"
+                                colors="primary:#ffffff,secondary:#08a88a"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                            <lord-icon
+                                class="light-theme-soft-skills-icon"
+                                src="https://cdn.lordicon.com/ncmnezgk.json"
+                                trigger="loop"
+                                delay="500"
+                                style="width:60px;height:60px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="skill-title">Soft Skills</h3>
+                        <ul class="skill-list">
                             <li>Problem Solving</li>
                             <li>Communication</li>
                             <li>Teamwork</li>
@@ -92,12 +195,19 @@
             </div>
         </section>
 
-        <section id="portfolio" class="portfolio-section section-padding">
+        <section id="projects" class="portfolio-section section-padding">
             <div class="container">
                 <h2>My Work</h2>
                 <div class="portfolio-grid">
-                    <div class="project-card">
-                        <img src="assets/agency.png" alt="AI Automation Agency">
+                    <div class="project-card"
+                        data-image="assets/agency.png"
+                        data-title="AGENCY"
+                        data-description="A personal project focused on building an AI automation agency to help businesses streamline repetitive processes and provide tailored solutions to their pain points."
+                        data-tags="AI Automation, Business Solutions, Process Optimization"
+                        data-live-demo="https://sharpflow.xyz/"
+                        data-github-repo="https://github.com/shajith240/AGENCY"
+                        onclick="window.location.href='agency_case_study.html';">
+                        <img src="assets/agency.png" alt="AI Automation Agency" loading="lazy">
                         <h3>AGENCY</h3>
                         <p>A personal project focused on building an AI automation agency to help businesses streamline repetitive processes and provide tailored solutions to their pain points.</p>
                         <div class="project-tags">
@@ -108,8 +218,14 @@
                             <a href="https://github.com/shajith240/AGENCY" target="_blank" class="btn small-btn">GitHub Repo</a>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Typing Practice Platform">
+                    <div class="project-card"
+                        data-image="https://via.placeholder.com/300x200"
+                        data-title="TYPESPRINT"
+                        data-description="A typing practice website, currently under development, designed to help users improve their typing speed and accuracy, similar to platforms like MonkeyType and Keybr."
+                        data-tags="Web Development, Typing Practice, JavaScript"
+                        data-live-demo="#"
+                        data-github-repo="https://github.com/shajith240/TYPESPRINT">
+                        <img src="https://via.placeholder.com/300x200" alt="Typing Practice Platform" loading="lazy">
                         <h3>TYPESPRINT</h3>
                         <p>A typing practice website, currently under development, designed to help users improve their typing speed and accuracy, similar to platforms like MonkeyType and Keybr.</p>
                         <div class="project-tags">
@@ -120,8 +236,14 @@
                             <a href="https://github.com/shajith240/TYPESPRINT" target="_blank" class="btn small-btn">GitHub Repo</a>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Invoice Scraper">
+                    <div class="project-card"
+                        data-image="https://via.placeholder.com/300x200"
+                        data-title="INVOICE-SCRAPING-SYSTEM"
+                        data-description="An automation system designed to scrape invoice details from emails and organize them into Google Sheets or a specified database."
+                        data-tags="Automation, Python, Data Extraction"
+                        data-live-demo="#"
+                        data-github-repo="https://github.com/shajith240/INVOICE-SCRAPING-SYSTEM">
+                        <img src="https://via.placeholder.com/300x200" alt="Invoice Scraper" loading="lazy">
                         <h3>INVOICE-SCRAPING-SYSTEM</h3>
                         <p>An automation system designed to scrape invoice details from emails and organize them into Google Sheets or a specified database.</p>
                         <div class="project-tags">
@@ -132,8 +254,14 @@
                             <a href="https://github.com/shajith240/INVOICE-SCRAPING-SYSTEM" target="_blank" class="btn small-btn">GitHub Repo</a>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Online Store">
+                    <div class="project-card"
+                        data-image="https://via.placeholder.com/300x200"
+                        data-title="ONLINE_STORE"
+                        data-description="An e-commerce platform built to explore web development in the e-commerce domain, with future plans to sell personal products."
+                        data-tags="E-commerce, Web Development, [Add Technologies]"
+                        data-live-demo="#"
+                        data-github-repo="https://github.com/shajith240/ONLINE_STORE">
+                        <img src="https://via.placeholder.com/300x200" alt="Online Store" loading="lazy">
                         <h3>ONLINE_STORE</h3>
                         <p>An e-commerce platform built to explore web development in the e-commerce domain, with future plans to sell personal products.</p>
                         <div class="project-tags">
@@ -144,8 +272,14 @@
                             <a href="https://github.com/shajith240/ONLINE_STORE" target="_blank" class="btn small-btn">GitHub Repo</a>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Wi-Fi Automation">
+                    <div class="project-card"
+                        data-image="https://via.placeholder.com/300x200"
+                        data-title="WIFI-AUTOMATION"
+                        data-description="A Python-based automation project designed to automate the college Wi-Fi login process, running in the background to ensure continuous connectivity."
+                        data-tags="Python, Automation, Scripting"
+                        data-live-demo="#"
+                        data-github-repo="https://github.com/shajith240/WIFI-AUTOMATION">
+                        <img src="https://via.placeholder.com/300x200" alt="Wi-Fi Automation" loading="lazy">
                         <h3>WIFI-AUTOMATION</h3>
                         <p>A Python-based automation project designed to automate the college Wi-Fi login process, running in the background to ensure continuous connectivity.</p>
                         <div class="project-tags">
@@ -156,7 +290,13 @@
                             <a href="https://github.com/shajith240/WIFI-AUTOMATION" target="_blank" class="btn small-btn">GitHub Repo</a>
                         </div>
                     </div>
-                    <div class="project-card">
+                    <div class="project-card"
+                        data-image="https://via.placeholder.com/300x200"
+                        data-title="AQUAGUARD"
+                        data-description="A college hackathon project focused on building a system to automatically detect flaws in water systems, including water capacity, leak detection, temperature, and pressure monitoring."
+                        data-tags="IoT, Sensors, Water Management, Hackathon"
+                        data-live-demo="#"
+                        data-github-repo="https://github.com/shajith240/AQUAGUARD">
                         <img src="https://via.placeholder.com/300x200" alt="AquaGuard System">
                         <h3>AQUAGUARD</h3>
                         <p>A college hackathon project focused on building a system to automatically detect flaws in water systems, including water capacity, leak detection, temperature, and pressure monitoring.</p>
@@ -172,58 +312,147 @@
             </div>
         </section>
 
-        <section id="experience" class="experience-section section-padding">
+        <section id="github-activity" class="github-section section-padding">
             <div class="container">
-                <h2>Experience & Education</h2>
-
-                <div class="experience-group">
-                    <h3>Professional Experience</h3>
-                    <div class="experience-cards">
-                        <div class="experience-card">
-                            <h4><i class="fas fa-briefcase"></i> AI Automation Specialist & Template Developer</h4>
-                            <p class="company">Freelance | June 2025 - Present</p>
-                            <ul>
-                                <li>Developed 100+ AI automation templates, saving businesses 10+ hours/week.</li>
-                                <li>Specialized in no-code/low-code solutions (n8n, Zapier, Make.com) for social media, email marketing, and customer service.</li>
-                                <li>Achieved 95% client satisfaction and reduced manual processes by 60-80%.</li>
-                            </ul>
-                        </div>
-                    </div>
+                <h2>My GitHub Activity</h2>
+                <div class="calendar">
+                    <!-- Loading stuff -->
+                    Loading the data just for you.
                 </div>
+            </div>
+        </section>
 
-                <div class="experience-group">
-                    <h3>Education</h3>
-                    <div class="education-cards">
-                        <div class="education-card">
-                            <h4><i class="fas fa-graduation-cap"></i> Bachelor of Technology in Computer Science</h4>
-                            <p class="company">Indian Institute of Technology (Indian School of Mines), Dhanbad | July 2024 - October 2028</p>
-                            <ul>
-                                <li>Currently pursuing B.Tech with a focus on AI and automation.</li>
-                                <li>Developed expertise in Python, JavaScript, and workflow automation tools.</li>
-                                <li>Strong foundation in data structures, algorithms, and cybersecurity.</li>
-                            </ul>
+        <section id="leetcode-stats" class="leetcode-section section-padding">
+            <div class="container">
+                <h2>My LeetCode Stats</h2>
+                <div class="leetcode-content-wrapper">
+                    <div class="leetcode-profile-card">
+                        <img id="leetcode-profile-picture" src="" alt="LeetCode Profile Picture" class="leetcode-avatar" loading="lazy">
+                        <h3 id="leetcode-username"></h3>
+                        <p class="leetcode-rank-display">Rank: <span id="leetcode-ranking">Loading...</span></p>
+                    </div>
+                    <div class="leetcode-stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Solved</h3>
+                            <p id="leetcode-total-solved">Loading...</p>
                         </div>
-                        <div class="education-card">
-                            <h4><i class="fas fa-user-graduate"></i> Undergraduate Student, Computer Science and Engineering</h4>
-                            <p class="company">Indian Institute of Technology (Indian School of Mines), Dhanbad | July 2024 - Present</p>
-                            <ul>
-                                <li>Active in tech communities and automation forums.</li>
-                                <li>Created multiple automation projects including login systems and portfolio websites.</li>
-                            </ul>
+                        <div class="stat-card">
+                            <h3>Easy Solved</h3>
+                            <p id="leetcode-easy-solved">Loading...</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Medium Solved</h3>
+                            <p id="leetcode-medium-solved">Loading...</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Hard Solved</h3>
+                            <p id="leetcode-hard-solved">Loading...</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <section id="experience" class="experience-section section-padding">
+            <div class="container">
+                <h2>Experience & Education</h2>
+                <div class="experience-grid">
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div class="experience-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="experience-title-group">
+                                <h3 class="experience-title">AI Automation Specialist & Template Developer</h3>
+                                <p class="experience-company">Freelance | June 2025 - Present</p>
+                            </div>
+                        </div>
+                        <ul class="experience-details">
+                            <li>Developed 100+ AI automation templates, saving businesses 10+ hours/week.</li>
+                            <li>Specialized in no-code/low-code solutions (n8n, Zapier, Make.com) for social media, email marketing, and customer service.</li>
+                            <li>Achieved 95% client satisfaction and reduced manual processes by 60-80%.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div class="experience-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="experience-title-group">
+                                <h3 class="experience-title">Bachelor of Technology in Computer Science</h3>
+                                <p class="experience-company">Indian Institute of Technology (Indian School of Mines), Dhanbad | July 2024 - October 2028</p>
+                            </div>
+                        </div>
+                        <ul class="experience-details">
+                            <li>Currently pursuing B.Tech with a focus on AI and automation.</li>
+                            <li>Developed expertise in Python, JavaScript, and workflow automation tools.</li>
+                            <li>Strong foundation in data structures, algorithms, and cybersecurity.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div class="experience-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="experience-title-group">
+                                <h3 class="experience-title">Undergraduate Student, Computer Science and Engineering</h3>
+                                <p class="experience-company">Indian Institute of Technology (Indian School of Mines), Dhanbad | July 2024 - Present</p>
+                            </div>
+                        </div>
+                        <ul class="experience-details">
+                            <li>Active in tech communities and automation forums.</li>
+                            <li>Created multiple automation projects including login systems and portfolio websites.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
         <section id="contact" class="contact-section section-padding">
             <div class="container">
-                <h2>Get In Touch</h2>
-                <p>I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-                <div class="contact-info">
-                    <p>Email: <a href="mailto:24je0598@iitism.ac.in"><i class="fas fa-envelope"></i> 24je0598@iitism.ac.in</a></p>
-                    <p>LinkedIn: <a href="https://www.linkedin.com/in/shajith240" target="_blank"><i class="fab fa-linkedin"></i> linkedin.com/in/shajith240</a></p>
-                    <p>GitHub: <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i> github.com/yourprofile</a></p>
+                <h2>Communicate with Me</h2>
+                <div class="contact-main-content">
+                    <div class="contact-icon-wrapper">
+                        <div class="contact-icon-container">
+                            <lord-icon
+                                class="dark-theme-contact-icon"
+                                src="https://cdn.lordicon.com/jdgfsfzr.json"
+                                trigger="loop"
+                                delay="500"
+                                colors="primary:#ffffff,secondary:#08a88a"
+                                style="width:250px;height:250px">
+                            </lord-icon>
+                            <lord-icon
+                                class="light-theme-contact-icon"
+                                src="https://cdn.lordicon.com/jdgfsfzr.json"
+                                trigger="loop"
+                                delay="500"
+                                style="width:250px;height:250px">
+                            </lord-icon>
+                        </div>
+                    </div>
+                    <div class="contact-form-wrapper">
+                        <div class="contact-form-container">
+                            <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="_replyto" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn primary-btn">Send Message</button>
+                            </form>
+                            <div id="form-status"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -231,11 +460,37 @@
 
     <footer class="footer-section">
         <div class="container">
-            <p>&copy; 2025 Shajith. All rights reserved.</p>
-            <a href="#hero" class="back-to-top">Back to Top</a>
+            <div class="footer-left">
+                <p>&copy; 2025 Shajith. All rights reserved.</p>
+            </div>
+            <div class="footer-center">
+                <a href="https://github.com/shajith240" target="_blank" class="footer-social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:your-email@gmail.com" class="footer-social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="footer-right">
+                <a href="#hero" class="back-to-top">Back to Top</a>
+            </div>
         </div>
     </footer>
 
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <img id="modal-image" src="" alt="Project Image">
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <div id="modal-tags" class="project-tags"></div>
+            <div id="modal-links" class="project-links"></div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script>
+        GitHubCalendar(".calendar", "shajith240");
+    </script>
 </body>
 </html>
