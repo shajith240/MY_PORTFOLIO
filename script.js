@@ -261,60 +261,26 @@ document.addEventListener('DOMContentLoaded', () => {
             constructor(x, y, radius, twinkleSpeed) {
                 this.x = x;
                 this.y = y;
-                this.baseX = x;
-                this.baseY = y;
                 this.radius = radius;
                 this.twinkleSpeed = twinkleSpeed;
-                this.opacity = Math.random() * 0.8 + 0.2;
-                this.direction = Math.random() > 0.5 ? 1 : -1;
-                this.driftSpeed = Math.random() * 0.1 + 0.05;
-                this.angle = Math.random() * Math.PI * 2;
-                this.driftRadius = Math.random() * 15 + 5;
-                this.pulseSpeed = Math.random() * 0.02 + 0.01;
+                this.opacity = Math.random();
+                this.direction = Math.random() > 0.5 ? 1 : -1; // 1 for increasing, -1 for decreasing
             }
 
             draw(offsetY = 0) {
-                // Create a subtle glow effect
-                const gradient = ctx.createRadialGradient(
-                    this.x, this.y + offsetY, 0,
-                    this.x, this.y + offsetY, this.radius * 3
-                );
-                
-                const starColor = document.body.classList.contains('light-mode') ? 
-                    `rgba(50, 50, 50, ${this.opacity})` : 
-                    `rgba(255, 255, 255, ${this.opacity})`;
-                    
-                const glowColor = document.body.classList.contains('light-mode') ? 
-                    `rgba(50, 50, 50, ${this.opacity * 0.1})` : 
-                    `rgba(108, 182, 255, ${this.opacity * 0.2})`;
-
-                gradient.addColorStop(0, starColor);
-                gradient.addColorStop(0.4, glowColor);
-                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
                 ctx.beginPath();
                 ctx.arc(this.x, this.y + offsetY, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = gradient;
-                ctx.fill();
-
-                // Add a bright center point
-                ctx.beginPath();
-                ctx.arc(this.x, this.y + offsetY, this.radius * 0.3, 0, Math.PI * 2);
-                ctx.fillStyle = starColor;
+                const starColor = document.body.classList.contains('light-mode') ? 'rgba(0, 0, 0,' : 'rgba(255, 255, 255,';
+                ctx.fillStyle = `${starColor} ${this.opacity})`;
                 ctx.fill();
             }
 
             update() {
-                // Gentle twinkling
                 this.opacity += this.direction * this.twinkleSpeed;
-                if (this.opacity > 0.9 || this.opacity < 0.1) {
+
+                if (this.opacity > 1 || this.opacity < 0) {
                     this.direction *= -1;
                 }
-
-                // Subtle floating movement
-                this.angle += this.driftSpeed;
-                this.x = this.baseX + Math.cos(this.angle) * this.driftRadius;
-                this.y = this.baseY + Math.sin(this.angle) * this.driftRadius;
             }
         }
 

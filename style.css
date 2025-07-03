@@ -174,19 +174,17 @@ p {
   color: var(--color-accent);
 }
 
-/* Apple-style Buttons */
+/* Apple-style Clean Buttons */
 .btn {
   display: inline-block;
   padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
-  border-radius: calc(var(--border-radius) * 3);
+  border-radius: var(--border-radius);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.2s ease;
   border: none;
-  font-size: 1.1em;
+  font-size: 1em;
   letter-spacing: -0.01em;
-  position: relative;
-  overflow: hidden;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
@@ -194,73 +192,45 @@ p {
   -ms-user-select: none;
 }
 
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.btn:hover::before {
-  left: 100%;
-}
-
 .primary-btn {
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  background-color: var(--color-accent);
   color: #ffffff;
-  box-shadow: 
-    0 4px 15px rgba(108, 182, 255, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(108, 182, 255, 0.25);
 }
 
 .primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 25px rgba(108, 182, 255, 0.4),
-    0 4px 8px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+  background-color: var(--color-accent-dark);
+  box-shadow: 0 4px 12px rgba(108, 182, 255, 0.35);
+  transform: translateY(-1px);
 }
 
 .primary-btn:active {
   transform: translateY(0);
-  box-shadow: 
-    0 2px 8px rgba(108, 182, 255, 0.3),
-    0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(108, 182, 255, 0.25);
 }
 
 .secondary-btn {
-  background: rgba(255, 255, 255, 0.05);
+  background: transparent;
   color: var(--color-accent);
-  border: 2px solid var(--color-accent);
+  border: 1px solid var(--color-accent);
   margin-left: calc(var(--spacing-unit) * 3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .secondary-btn:hover {
   background: rgba(108, 182, 255, 0.1);
-  color: var(--color-accent-dark);
   border-color: var(--color-accent-dark);
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 25px rgba(108, 182, 255, 0.2),
-    0 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--color-accent-dark);
+  transform: translateY(-1px);
 }
 
 .secondary-btn:active {
   transform: translateY(0);
-  box-shadow: 
-    0 2px 8px rgba(108, 182, 255, 0.2),
-    0 1px 2px rgba(0, 0, 0, 0.05);
+  background: rgba(108, 182, 255, 0.05);
 }
 
 .small-btn {
   padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 /* Hero Section - Apple-inspired Design */
