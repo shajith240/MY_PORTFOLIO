@@ -383,16 +383,16 @@
                         <div class="contact-form-container">
                             <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
                                 <div class="form-group">
+                                    <input type="text" id="name" name="name" placeholder=" " required>
                                     <label for="name">Name</label>
-                                    <input type="text" id="name" name="name" required>
                                 </div>
                                 <div class="form-group">
+                                    <input type="email" id="email" name="_replyto" placeholder=" " required>
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="_replyto" required>
                                 </div>
                                 <div class="form-group">
+                                    <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
                                     <label for="message">Message</label>
-                                    <textarea id="message" name="message" rows="5" required></textarea>
                                 </div>
                                 <button type="submit" class="btn primary-btn">Send Message</button>
                             </form>
