@@ -11,26 +11,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Highlight active navigation link on scroll
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.navbar ul li a');
 
-    window.addEventListener('scroll', () => {
+    function updateActiveNavLink() {
+        const scrollPosition = window.pageYOffset + 150; // Account for navbar height
         let current = '';
+        
+        // Find the section that the user is currently viewing
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - sectionHeight / 3) {
-                current = section.getAttribute('id');
+            const sectionId = section.getAttribute('id');
+            
+            // Check if we're in the middle part of this section
+            if (scrollPosition >= sectionTop && scrollPosition <= (sectionTop + sectionHeight - 100)) {
+                current = sectionId;
             }
         });
+        
+        // Special case for the very top of the page
+        if (window.pageYOffset < 100) {
+            current = 'hero';
+        }
+        
+        // Special case for the bottom of the page
+        if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 100) {
+            const lastSection = sections[sections.length - 1];
+            if (lastSection) {
+                current = lastSection.getAttribute('id');
+            }
+        }
 
+        // Update navigation links
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
+            const href = link.getAttribute('href');
+            if (href && current && href === `#${current}`) {
                 link.classList.add('active');
             }
         });
-    });
+    }
+
+    window.addEventListener('scroll', updateActiveNavLink);
+    
+    // Run once on page load
+    updateActiveNavLink();
 
     // Initial active link set (for when page loads at the top)
     if (window.pageYOffset === 0) {
