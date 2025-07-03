@@ -444,9 +444,7 @@ body:not(.light-mode) #theme-toggle:hover {
 
 /* About Section */
 .about-section {
-  padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 6);
-  margin: calc(var(--spacing-unit) * 8) auto;
-  max-width: 1400px; /* Increased max-width */
+  background: var(--color-background);
 }
 
 .about-content-wrapper {
@@ -707,6 +705,20 @@ body:not(.light-mode) #theme-toggle:hover {
 }
 
 /* Experience Section */
+.experience-section {
+  background: var(--color-background);
+}
+
+.experience-section h2 {
+  font-size: clamp(2.5em, 5vw, 3.5em);
+  font-weight: 700;
+  margin-bottom: calc(var(--spacing-unit) * 8);
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+/* Experience Section Content */
 .experience-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1379,7 +1391,7 @@ body.light-mode #theme-toggle:hover {
 
 /* Footer Section */
 .footer-section {
-  background-color: var(--color-surface);
+  background: var(--color-background);
   padding: calc(var(--spacing-unit) * 4) 0;
   border-top: 1px solid var(--color-border);
   color: var(--color-text-secondary);
