@@ -188,10 +188,6 @@ p {
   font-size: 1em;
 }
 
-.btn:hover {
-  transform: scale(1.02);
-}
-
 .primary-btn {
   background-color: var(--color-accent);
   color: var(--color-background);
@@ -278,40 +274,40 @@ p {
   border-radius: 50%;
   border: 4px solid var(--color-surface);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-  transform: scale(1.1); /* Slightly zoom in */
   transition: transform var(--transition-speed); /* Smooth transition for hover effects if added later */
 }
 
 /* About Section */
 .about-section {
-  background-color: var(--color-surface);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 6);
+  padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 6);
   margin: calc(var(--spacing-unit) * 8) auto;
-  max-width: 1100px;
+  max-width: 1400px; /* Increased max-width */
 }
 
 .about-content-wrapper {
   display: flex;
-  align-items: flex-start; /* Align items to the top */
-  gap: calc(var(--spacing-unit) * 4);
+  align-items: center; /* Vertically center content */
+  gap: calc(var(--spacing-unit) * 8); /* Increased gap */
 }
 
 .about-image-container {
-  flex: 0 0 25%; /* 25% width for the image */
+  flex: 0 0 35%; /* Increased width for the image */
   text-align: center;
 }
 
 .about-memoji {
-  width: 100%; /* Make memoji responsive within its container */
-  max-width: 280px; /* Max size for the memoji */
+  width: 100%;
+  max-width: 400px; /* Increased memoji size */
   height: auto;
   border-radius: 50%;
   box-shadow: none;
-  margin-top: 80px; /* Adjust as needed to align with text */
+  margin-top: 0; /* Removed top margin */
   transition: opacity 0.5s ease-in-out;
+}
+
+.contact-memoji {
+  max-width: 350px; /* Make it bigger */
+  margin-top: 0; /* Reset margin-top from about-memoji */
 }
 
 .about-memoji.fade-out {
@@ -323,21 +319,22 @@ p {
 }
 
 .about-text-container {
-  flex: 1; /* Takes remaining space */
+  flex: 1;
   text-align: left;
 }
 
 .about-section h2 {
+  font-size: 3.5em; /* Increased font size */
   margin-bottom: calc(var(--spacing-unit) * 4);
-  text-align: left; /* Align heading to the left */
+  text-align: left;
 }
 
 .about-section p {
   margin: 0;
-  text-align: left; /* Align paragraph to the left */
+  text-align: left;
   color: var(--color-text-primary);
-  line-height: 1.9;
-  font-size: 1.15em;
+  line-height: 1.8; /* Increased line-height for readability */
+  font-size: 1.4em; /* Increased font size */
 }
 
 @media (max-width: 768px) {
@@ -403,73 +400,88 @@ p {
 }
 
 /* Projects Section */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: calc(var(--spacing-unit) * 4);
+.portfolio-section .container {
+    max-width: 100%;
+    padding-left: calc(var(--spacing-unit) * 8);
+    padding-right: calc(var(--spacing-unit) * 8);
 }
 
-.project-card {
-  background-color: var(--color-surface);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform var(--transition-speed);
+.project-showcase {
   display: flex;
   flex-direction: column;
+  gap: calc(var(--spacing-unit) * 15);
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+.project-item {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 10);
 }
 
-.project-card img {
+.project-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.project-item__image {
+  flex: 1;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+}
+
+.project-item__image img,
+.project-item__image video {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid var(--color-border);
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
 }
 
-.project-card h3 {
-  padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3) 0;
-  margin-bottom: var(--spacing-unit);
+.project-item__image:hover img {
+}
+
+.project-item__content {
+  flex: 1;
+  padding: 0 calc(var(--spacing-unit) * 4);
+}
+
+.project-item__title {
+  font-size: 3em;
+  margin-bottom: calc(var(--spacing-unit) * 3);
   color: var(--color-accent);
 }
 
-.project-card p {
-  padding: 0 calc(var(--spacing-unit) * 3);
-  color: var(--color-text-secondary);
-  font-size: 0.95em;
-  flex-grow: 1;
+.project-item__description {
+  font-size: 1.3em;
+  line-height: 1.7;
+  margin-bottom: calc(var(--spacing-unit) * 5);
 }
 
 .project-tags {
-  padding: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
+    margin-bottom: calc(var(--spacing-unit) * 5);
 }
 
 .project-tags span {
   display: inline-block;
   background-color: rgba(10, 132, 255, 0.1);
   color: var(--color-accent);
-  padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1.5);
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
   border-radius: calc(var(--border-radius) / 2);
-  font-size: 0.8em;
+  font-size: 0.9em;
+  font-weight: 500;
   margin-right: var(--spacing-unit);
   margin-bottom: var(--spacing-unit);
 }
 
 .project-links {
-  padding: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 3);
-  display: flex;
-  gap: var(--spacing-unit);
+    display: flex;
+    gap: calc(var(--spacing-unit) * 2);
 }
 
 /* Experience Section */
 .experience-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: calc(var(--spacing-unit) * 4);
 }
 
@@ -477,21 +489,21 @@ p {
   background-color: var(--color-surface);
   padding: calc(var(--spacing-unit) * 4);
   border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .experience-header {
   display: flex;
   align-items: flex-start;
-  margin-bottom: calc(var(--spacing-unit) * 3);
+  margin-bottom: calc(var(--spacing-unit) * 2);
 }
 
 .experience-icon {
   font-size: 1.8em;
-  margin-right: calc(var(--spacing-unit) * 3);
+  margin-right: calc(var(--spacing-unit) * 2);
   color: var(--color-accent);
   margin-top: calc(var(--spacing-unit) * 0.5);
 }
@@ -522,6 +534,13 @@ p {
 
 .experience-details li {
   margin-bottom: var(--spacing-unit);
+}
+
+/* Responsive adjustments for experience section */
+@media (max-width: 768px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Light Mode */
@@ -1113,6 +1132,119 @@ body.light-mode .calendar .ContributionCalendar-day[data-level='4'] { fill: #216
   }
 }
 
+/* Dark Mode Skill Icons */
+.dark-theme-skill-icon {
+  display: inline-block;
+}
+
+.light-theme-skill-icon {
+  display: none;
+}
+
+body.light-mode .dark-theme-skill-icon {
+  display: none;
+}
+
+body.light-mode .light-theme-skill-icon {
+  display: inline-block;
+}
+
+/* Dark Mode Automation Icons */
+.dark-theme-automation-icon {
+  display: inline-block;
+}
+
+.light-theme-automation-icon {
+  display: none;
+}
+
+body.light-mode .dark-theme-automation-icon {
+  display: none;
+}
+
+body.light-mode .light-theme-automation-icon {
+  display: inline-block;
+}
+
+/* Dark Mode Concepts Icons */
+.dark-theme-concepts-icon {
+  display: inline-block;
+}
+
+.light-theme-concepts-icon {
+  display: none;
+}
+
+body.light-mode .dark-theme-concepts-icon {
+  display: none;
+}
+
+body.light-mode .light-theme-concepts-icon {
+  display: inline-block;
+}
+
+/* Dark Mode Soft Skills Icons */
+.dark-theme-soft-skills-icon {
+  display: inline-block;
+}
+
+.light-theme-soft-skills-icon {
+  display: none;
+}
+
+body.light-mode .dark-theme-soft-skills-icon {
+  display: none;
+}
+
+body.light-mode .light-theme-soft-skills-icon {
+  display: inline-block;
+}
+
+/* Thanksgiving Section */
+.thanksgiving-section .container {
+    max-width: 100%;
+    padding-left: calc(var(--spacing-unit) * 8);
+    padding-right: calc(var(--spacing-unit) * 8);
+}
+
+.thanksgiving-section {
+  padding: calc(var(--spacing-unit) * 15) 0;
+}
+
+.thanksgiving-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: calc(var(--spacing-unit) * 8);
+}
+
+.thanksgiving-text-container {
+  flex: 1;
+}
+
+.thanksgiving-section h2 {
+  font-size: 3.5em;
+  margin-bottom: calc(var(--spacing-unit) * 3);
+}
+
+.thanksgiving-subtitle {
+    font-size: 1.5em;
+    color: var(--color-text-secondary);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.thanksgiving-image-container {
+  flex: 0 0 30%;
+}
+
+.thanksgiving-memoji {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
 /* Scroll Animation Classes */
 .hidden-on-scroll {
     opacity: 0;
@@ -1123,145 +1255,4 @@ body.light-mode .calendar .ContributionCalendar-day[data-level='4'] { fill: #216
 .show-on-scroll {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* LeetCode Stats Section */
-.leetcode-section {
-    background-color: var(--color-surface);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 6);
-    margin: calc(var(--spacing-unit) * 8) auto;
-    max-width: 1100px;
-    /* Removed text-align: center; from here */
-}
-
-.leetcode-content-wrapper {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: calc(var(--spacing-unit) * 6);
-    justify-content: flex-start; /* Changed from center to flex-start */
-    align-items: flex-start;
-    margin-top: calc(var(--spacing-unit) * 4);
-}
-
-.leetcode-profile-card {
-    background-color: var(--color-background);
-    padding: calc(var(--spacing-unit) * 4);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Keep profile card content centered */
-    flex: 0 0 280px; /* Fixed width for the profile card */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.leetcode-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid #00b8a3; /* LeetCode Green */
-    object-fit: cover;
-    margin-bottom: calc(var(--spacing-unit) * 2);
-    box-shadow: 0 0 15px rgba(0, 184, 163, 0.3); /* LeetCode Green shadow */
-}
-
-.leetcode-username {
-    font-size: 1.8em;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    margin-bottom: calc(var(--spacing-unit) * 1);
-}
-
-.leetcode-rank-display {
-    font-size: 1.1em;
-    color: var(--color-text-secondary);
-    margin-bottom: calc(var(--spacing-unit) * 2);
-}
-
-.leetcode-rank-display span {
-    font-weight: 600;
-    color: #00b8a3; /* LeetCode Green */
-}
-
-.leetcode-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: calc(var(--spacing-unit) * 4);
-    flex: 1; /* Take remaining space */
-    min-width: 300px; /* Ensure it doesn't shrink too much */
-}
-
-.stat-card {
-    background-color: var(--color-background);
-    padding: calc(var(--spacing-unit) * 3);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-border);
-    text-align: left; /* Changed from center to left */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.stat-card h3 {
-    font-size: 1.1em;
-    color: var(--color-text-secondary);
-    margin-bottom: calc(var(--spacing-unit) * 1);
-}
-
-.stat-card p {
-    font-size: 1.6em;
-    font-weight: 700;
-    color: #00b8a3; /* LeetCode Green */
-    margin: 0;
-}
-
-/* Light Mode adjustments for LeetCode section */
-body.light-mode .leetcode-profile-card {
-    background-color: #ffffff; /* White background for light mode */
-    border-color: #dcdcdc;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-body.light-mode .leetcode-avatar {
-    border-color: #008c7a; /* Darker green for light mode border */
-    box-shadow: 0 0 15px rgba(0, 140, 122, 0.2);
-}
-
-body.light-mode .leetcode-rank-display span {
-    color: #008c7a; /* Darker green for light mode */
-}
-
-body.light-mode .stat-card {
-    background-color: #ffffff; /* White background for light mode */
-    border-color: #dcdcdc;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-body.light-mode .stat-card p {
-    color: #008c7a; /* Darker green for light mode */
-}
-
-@media (max-width: 768px) {
-    .leetcode-section {
-        padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 2);
-    }
-
-    .leetcode-content-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .leetcode-profile-card {
-        flex: none;
-        width: 100%;
-        max-width: 300px; /* Limit width on small screens */
-    }
-
-    .leetcode-stats-grid {
-        grid-template-columns: 1fr;
-        width: 100%;
-    }
 }

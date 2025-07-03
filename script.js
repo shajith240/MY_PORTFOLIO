@@ -324,9 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const memojiImage = document.getElementById('memoji-transition');
     if (memojiImage) {
         const memojiImages = [
-            'assets/variation 1.svg',
             'assets/variation 2.svg',
-            'assets/variation 3.svg',
             'assets/variation 4.svg'
         ];
         let currentMemojiIndex = 0;
@@ -350,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Scroll Animation (Intersection Observer)
-    const sectionsToAnimate = document.querySelectorAll('.about-section, .skills-section, .portfolio-section, .github-section, .leetcode-section, .experience-section, .contact-section');
+    const sectionsToAnimate = document.querySelectorAll('.about-section, .skills-section, .portfolio-section, .github-section, .experience-section, .contact-section, .thanksgiving-section');
 
     // Add transition property to all sections for smooth animation
     sectionsToAnimate.forEach(section => {
@@ -366,63 +364,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                console.log(`Section ${entry.target.id} is intersecting. Adding show-on-scroll.`);
-                entry.target.classList.add('show-on-scroll');
-                entry.target.classList.remove('hidden-on-scroll');
-                // observer.unobserve(entry.target); // Uncomment if you want the animation to play only once
-            } else {
-                console.log(`Section ${entry.target.id} is NOT intersecting. Adding hidden-on-scroll.`);
-                // Optional: Re-hide elements when they scroll out of view
-                entry.target.classList.remove('show-on-scroll');
-                entry.target.classList.add('hidden-on-scroll');
+                // Only apply 'show-on-scroll' if it's not already visible
+                // and then stop observing
+                if (entry.target.classList.contains('hidden-on-scroll')) {
+                    entry.target.classList.add('show-on-scroll');
+                    entry.target.classList.remove('hidden-on-scroll');
+                    observer.unobserve(entry.target); // Stop observing after first animation
+                }
             }
+            // No else block needed, as we want it to remain visible once animated
         });
     }, observerOptions);
 
     sectionsToAnimate.forEach(section => {
         section.classList.add('hidden-on-scroll'); // Set initial hidden state
         observer.observe(section);
-        console.log(`Observing section: ${section.id}`);
     });
-
-    // Fetch and display LeetCode stats
-    const leetcodeUsername = 'SHAJITH_CODE';
-    const leetcodeStatsApiUrl = `https://leetcode-stats-api.herokuapp.com/${leetcodeUsername}`;
-
-    // Set local profile picture and username
-    document.getElementById('leetcode-profile-picture').src = 'assets/profile_picture.jpg';
-    document.getElementById('leetcode-username').innerText = leetcodeUsername;
-
-    // Fetch LeetCode stats
-    fetch(leetcodeStatsApiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.status === 'success') {
-                document.getElementById('leetcode-total-solved').innerText = data.totalSolved;
-                document.getElementById('leetcode-ranking').innerText = data.ranking;
-                document.getElementById('leetcode-easy-solved').innerText = data.easySolved;
-                document.getElementById('leetcode-medium-solved').innerText = data.mediumSolved;
-                document.getElementById('leetcode-hard-solved').innerText = data.hardSolved;
-            } else {
-                console.error('Error fetching LeetCode stats:', data.message);
-                document.getElementById('leetcode-total-solved').innerText = 'N/A';
-                document.getElementById('leetcode-ranking').innerText = 'N/A';
-                document.getElementById('leetcode-easy-solved').innerText = 'N/A';
-                document.getElementById('leetcode-medium-solved').innerText = 'N/A';
-                document.getElementById('leetcode-hard-solved').innerText = 'N/A';
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching LeetCode stats:', error);
-            document.getElementById('leetcode-total-solved').innerText = 'Error';
-            document.getElementById('leetcode-ranking').innerText = 'Error';
-            document.getElementById('leetcode-easy-solved').innerText = 'Error';
-            document.getElementById('leetcode-medium-solved').innerText = 'Error';
-            document.getElementById('leetcode-hard-solved').innerText = 'Error';
-        });
 });
