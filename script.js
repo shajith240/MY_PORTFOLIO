@@ -198,25 +198,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Theme toggle event listener
-    themeToggle.addEventListener('click', () => {
-        if (body.classList.contains('dark-mode')) {
-            body.classList.replace('dark-mode', 'light-mode');
-            if (themeToggleIcon) {
-                themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.replace('dark-mode', 'light-mode');
+                if (themeToggleIcon) {
+                    themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+                }
+                localStorage.setItem('theme', 'light-mode');
+                initStars(); // Re-initialize stars on theme change
+                applyLordiconTheme(true);
+            } else {
+                body.classList.replace('light-mode', 'dark-mode');
+                if (themeToggleIcon) {
+                    themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
+                }
+                localStorage.setItem('theme', 'dark-mode');
+                initStars(); // Re-initialize stars on theme change
+                applyLordiconTheme(false);
             }
-            localStorage.setItem('theme', 'light-mode');
-            initStars(); // Re-initialize stars on theme change
-            applyLordiconTheme(true);
-        } else {
-            body.classList.replace('light-mode', 'dark-mode');
-            if (themeToggleIcon) {
-                themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
-            }
-            localStorage.setItem('theme', 'dark-mode');
-            initStars(); // Re-initialize stars on theme change
-            applyLordiconTheme(false);
-        }
-    });
+        });
+    }
 
     // Contact Form Submission
     const contactForm = document.getElementById('contact-form');
@@ -332,12 +334,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Starfield Animation for Hero Section
     const canvas = document.getElementById('starfield-canvas');
+    console.log('Starfield canvas found:', !!canvas);
     if (canvas) {
         const ctx = canvas.getContext('2d');
         if (!ctx) {
             console.error('Could not get 2D context for canvas.');
             return;
         }
+        console.log('Starfield canvas context obtained successfully');
         let stars = [];
 
         class Star {
@@ -390,7 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function animateStars() {
-            // console.log('Animating stars...'); // Too chatty, only for specific debugging
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < stars.length; i++) {
                 stars[i].update();
@@ -402,6 +405,22 @@ document.addEventListener('DOMContentLoaded', () => {
         initStars();
         animateStars();
     }
+
+    // Make initStars globally available for theme toggle
+    window.initStars = function() {
+        if (canvas && stars) {
+            // Re-initialize stars when theme changes
+            const numberOfStars = (canvas.width * canvas.height) / 10000;
+            stars = [];
+            for (let i = 0; i < numberOfStars; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = Math.random() * 1.5 + 0.5;
+                const twinkleSpeed = Math.random() * 0.01 + 0.005;
+                stars.push(new Star(x, y, radius, twinkleSpeed));
+            }
+        }
+    };
 
     // Memoji Image Transition
     const memojiImage = document.getElementById('memoji-transition');
@@ -463,4 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
         section.classList.add('hidden-on-scroll'); // Set initial hidden state
         observer.observe(section);
     });
+
 });
+
+// Terminal functionality is now handled in HTML inline script for better control

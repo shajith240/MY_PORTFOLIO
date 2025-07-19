@@ -451,24 +451,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contact-form-wrapper">
-                        <div class="contact-form-container">
-                            <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
-                                <div class="form-group">
-                                    <input type="text" id="name" name="name" placeholder=" " required>
-                                    <label for="name">Name</label>
+                    <div class="terminal-wrapper">
+                        <div class="terminal-container">
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-control close"></span>
+                                    <span class="terminal-control minimize"></span>
+                                    <span class="terminal-control maximize"></span>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" id="email" name="_replyto" placeholder=" " required>
-                                    <label for="email">Email</label>
+                                <div class="terminal-title">shajith@portfolio:~$</div>
+                            </div>
+                            <div class="terminal-body" id="terminal-body">
+                                <div class="terminal-content">
+                                    <div class="terminal-output" id="terminal-output">
+                                        <!-- Startup message and input line will be added by JavaScript -->
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
-                                    <label for="message">Message</label>
-                                </div>
-                                <button type="submit" class="btn primary-btn">Send Message</button>
-                            </form>
-                            <div id="form-status"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -484,14 +483,24 @@
                     </div>
                     <div class="contact-mobile-text">
                         <h2>Communicate with Me</h2>
-                        <p>Let’s build something meaningful together! Drop a message below.</p>
-                        <form id="contact-form-mobile" action="https://formspree.io/f/yourformid" method="POST">
-                            <input type="text" name="name" placeholder="Name" required>
-                            <input type="email" name="_replyto" placeholder="Email" required>
-                            <textarea name="message" rows="4" placeholder="Message" required></textarea>
-                            <button type="submit" class="btn primary-btn">Send Message</button>
-                        </form>
-                        <div id="form-status-mobile"></div>
+                        <p>Let’s build something meaningful together! Use the terminal below.</p>
+                        <div class="terminal-container mobile-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-control close"></span>
+                                    <span class="terminal-control minimize"></span>
+                                    <span class="terminal-control maximize"></span>
+                                </div>
+                                <div class="terminal-title">shajith@portfolio:~$</div>
+                            </div>
+                            <div class="terminal-body" id="terminal-body-mobile">
+                                <div class="terminal-content">
+                                    <div class="terminal-output" id="terminal-output-mobile">
+                                        <!-- Startup message and input line will be added by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -562,6 +571,366 @@
     <script src="script.js"></script>
     <script>
         GitHubCalendar(".calendar", "shajith240");
+
+        // Direct terminal initialization
+        function initTerminalDirect() {
+            const terminalOutput = document.getElementById('terminal-output');
+            const terminalOutputMobile = document.getElementById('terminal-output-mobile');
+
+            console.log('Direct init - Elements found:', {
+                terminalOutput: !!terminalOutput,
+                terminalOutputMobile: !!terminalOutputMobile
+            });
+
+            // Create input line dynamically
+            function createInputLine(outputEl, isMobile = false) {
+                const inputLine = document.createElement('div');
+                inputLine.className = 'terminal-line terminal-input-line';
+                inputLine.innerHTML = `
+                    <span class="terminal-prompt">shajith@portfolio:~$</span>
+                    <input type="text" id="${isMobile ? 'terminal-input-mobile' : 'terminal-input'}" class="terminal-input" autocomplete="off" spellcheck="false">
+                    <span class="terminal-cursor">|</span>
+                `;
+                outputEl.appendChild(inputLine);
+                return inputLine.querySelector('.terminal-input');
+            }
+
+            // Update cursor position function
+            function updateCursor(inputEl) {
+                const cursor = inputEl.parentElement.querySelector('.terminal-cursor');
+                const prompt = inputEl.parentElement.querySelector('.terminal-prompt');
+                if (cursor && prompt) {
+                    // Create temporary span to measure text width
+                    const tempSpan = document.createElement('span');
+                    tempSpan.style.visibility = 'hidden';
+                    tempSpan.style.position = 'absolute';
+                    tempSpan.style.font = getComputedStyle(inputEl).font;
+                    tempSpan.textContent = inputEl.value;
+                    document.body.appendChild(tempSpan);
+
+                    const textWidth = tempSpan.offsetWidth;
+                    const promptWidth = prompt.offsetWidth;
+
+                    cursor.style.left = (promptWidth + 4 + textWidth) + 'px';
+
+                    document.body.removeChild(tempSpan);
+                }
+            }
+
+            function addOutput(outputEl, text, isCommand = false) {
+                // Find and remove existing input line
+                const existingInputLine = outputEl.querySelector('.terminal-input-line');
+                if (existingInputLine) {
+                    existingInputLine.remove();
+                }
+
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                if (isCommand) {
+                    line.innerHTML = `<span class="terminal-prompt">shajith@portfolio:~$</span><span class="terminal-text">${text}</span>`;
+                } else {
+                    line.innerHTML = `<span class="terminal-text">${text}</span>`;
+                }
+                outputEl.appendChild(line);
+
+                // Auto-scroll the terminal body to bottom
+                const terminalBody = outputEl.closest('.terminal-body');
+                if (terminalBody) {
+                    setTimeout(() => {
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                    }, 10);
+                }
+            }
+
+            // Global command history
+            let commandHistory = [];
+            let historyIndex = -1;
+
+            function setupInputHandlers(inputEl, outputEl) {
+                // Handle input events for cursor positioning
+                inputEl.addEventListener('input', () => {
+                    updateCursor(inputEl);
+                });
+
+                inputEl.addEventListener('keydown', (e) => handleKeyDown(e, inputEl, outputEl));
+
+                // Initial cursor positioning
+                updateCursor(inputEl);
+            }
+
+            function handleTerminalInput(inputEl, outputEl) {
+                setupInputHandlers(inputEl, outputEl);
+            }
+
+            function handleKeyDown(e, inputEl, outputEl) {
+                console.log('Direct handler - Key pressed:', e.key);
+
+                // Handle command history navigation
+                if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (commandHistory.length > 0 && historyIndex < commandHistory.length - 1) {
+                            historyIndex++;
+                            inputEl.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                            updateCursor(inputEl);
+                        }
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (historyIndex > 0) {
+                            historyIndex--;
+                            inputEl.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                            updateCursor(inputEl);
+                        } else if (historyIndex === 0) {
+                            historyIndex = -1;
+                            inputEl.value = '';
+                            updateCursor(inputEl);
+                        }
+                    } else if (e.key === 'Tab') {
+                        e.preventDefault();
+                        const currentInput = inputEl.value.toLowerCase();
+                        const availableCommands = ['help', 'about', 'contact', 'skills', 'projects', 'social', 'resume', 'whoami', 'clear', 'ls', 'dir', 'pwd', 'date', 'history'];
+                        const matches = availableCommands.filter(cmd => cmd.startsWith(currentInput));
+
+                        if (matches.length === 1) {
+                            inputEl.value = matches[0];
+                            updateCursor(inputEl);
+                        } else if (matches.length > 1) {
+                            addOutput(outputEl, `Available completions: ${matches.join(', ')}`);
+                        }
+                    } else if (e.key === 'Enter') {
+                        const command = inputEl.value.trim();
+                        console.log('Direct handler - Command:', command);
+
+                        // Add command to history if not empty
+                        if (command && command !== commandHistory[commandHistory.length - 1]) {
+                            commandHistory.push(command);
+                            // Keep history limited to last 50 commands
+                            if (commandHistory.length > 50) {
+                                commandHistory.shift();
+                            }
+                        }
+                        historyIndex = -1;
+
+                        // Add command to output
+                        addOutput(outputEl, command, true);
+
+                        // Process command
+                        if (command === 'help') {
+                            addOutput(outputEl, `Available commands:
+  help      - show this help message
+  about     - display information about Shajith
+  contact   - show contact information
+  skills    - list technical skills
+  projects  - show portfolio projects
+  social    - display social media links
+  resume    - show resume information
+  whoami    - display current user info
+  clear     - clear the terminal screen
+  ls/dir    - list directory contents
+  pwd       - show current directory
+  date      - display current date and time
+  history   - show command history`);
+                        } else if (command === 'about') {
+                            addOutput(outputEl, `About Shajith:
+
+AI Automation Specialist and B.Tech Computer Science student at IIT(ISM) Dhanbad.
+Specialized in designing and deploying automation solutions using n8n, Zapier, and Make.com.
+
+Key achievements:
+- 100+ automation templates developed
+- 95% client satisfaction rate
+- Significant reduction in manual processes for clients
+
+Current focus areas:
+- Artificial Intelligence and Machine Learning
+- Business Process Automation
+- Cybersecurity
+- Web Development`);
+                        } else if (command === 'contact') {
+                            addOutput(outputEl, `Contact Information:
+  Email: 24je0598@iitism.ac.in
+  Location: IIT(ISM) Dhanbad, India
+  GitHub: @shajith240
+  LinkedIn: Available upon request
+
+Open to discussing AI automation, web development, and project collaborations.`);
+                        } else if (command === 'skills') {
+                            addOutput(outputEl, `Technical Skills:
+
+Programming Languages:
+  Python          - Expert
+  JavaScript      - Advanced
+  HTML5/CSS3      - Advanced
+
+Automation & Tools:
+  n8n Automation  - Expert
+  Zapier          - Advanced
+  Make.com        - Advanced
+  API Integration - Expert
+
+Concepts & Fields:
+  Artificial Intelligence      - Advanced
+  Algorithms & Data Structures - Intermediate
+  Cybersecurity               - Intermediate
+  Web Development             - Advanced`);
+                        } else if (command === 'projects') {
+                            addOutput(outputEl, `Featured Projects:
+
+1. AGENCY - AI Automation Agency
+   Focus: Business process automation and AI solutions
+   Tech: AI Automation, Process Optimization
+   Live: https://sharpflow.xyz/
+   GitHub: https://github.com/shajith240/AGENCY
+
+2. TYPESPRINT - Typing Practice Platform
+   Focus: Improve typing speed and accuracy
+   Tech: JavaScript, Web Development
+   Status: Under Development
+
+3. INVOICE-SCRAPING-SYSTEM
+   Focus: Automated invoice processing
+   Tech: Python, Data Extraction, Automation
+
+4. WIFI-AUTOMATION
+   Focus: Automated college Wi-Fi login
+   Tech: Python, Automation, Scripting
+
+Visit my GitHub for more: https://github.com/shajith240`);
+                        } else if (command === 'social') {
+                            addOutput(outputEl, `Connect with me:
+
+Professional:
+  GitHub: https://github.com/shajith240
+  LinkedIn: [Connect for professional opportunities]
+  Email: 24je0598@iitism.ac.in
+
+Portfolio:
+  Website: You're already here!
+  Live Projects: Check out my work above
+
+Let's build something amazing together!`);
+                        } else if (command === 'resume') {
+                            addOutput(outputEl, `Resume/CV Information:
+
+Current Status: B.Tech Computer Science Student at IIT(ISM) Dhanbad
+Specialization: AI Automation & Web Development
+
+Key Achievements:
+  100+ AI automation templates developed
+  95% client satisfaction rate
+  60-80% reduction in manual processes for clients
+  10+ hours/week saved for businesses
+
+For detailed resume, contact: 24je0598@iitism.ac.in`);
+                        } else if (command === 'whoami') {
+                            addOutput(outputEl, `Current User: shajith
+Home Directory: /home/shajith/portfolio
+System: Portfolio Terminal v1.0
+Location: IIT(ISM) Dhanbad, India
+Status: AI Automation Specialist & CS Student
+
+You are exploring Shajith's interactive portfolio terminal.`);
+                        } else if (command === 'clear') {
+                            outputEl.innerHTML = '';
+                            addOutput(outputEl, 'Terminal cleared. Welcome back!');
+                        } else if (command === 'ls' || command === 'dir') {
+                            addOutput(outputEl, `Directory Contents:
+
+drwxr-xr-x  shajith  staff    about.txt
+drwxr-xr-x  shajith  staff    contact.txt
+drwxr-xr-x  shajith  staff    projects/
+drwxr-xr-x  shajith  staff    skills.txt
+drwxr-xr-x  shajith  staff    resume.pdf
+drwxr-xr-x  shajith  staff    social_links.txt
+
+Tip: Use commands like 'about', 'contact', 'projects' to explore these files!`);
+                        } else if (command === 'pwd') {
+                            addOutput(outputEl, '/home/shajith/portfolio');
+                        } else if (command === 'date') {
+                            addOutput(outputEl, new Date().toString());
+                        } else if (command === 'history') {
+                            if (commandHistory.length === 0) {
+                                addOutput(outputEl, 'No command history available.');
+                            } else {
+                                const historyOutput = commandHistory.map((cmd, index) => `${index + 1}  ${cmd}`).join('\n');
+                                addOutput(outputEl, historyOutput);
+                            }
+                        } else if (command === 'matrix') {
+                            addOutput(outputEl, `Welcome to the Matrix, Neo...
+
+01001000 01100101 01101100 01101100 01101111
+01010111 01101111 01110010 01101100 01100100
+
+Just kidding! This is Shajith's portfolio terminal.
+But I do love building automation systems that feel like magic!
+
+Try 'projects' to see some real-world automation magic I've built.`);
+                        } else if (command !== '') {
+                            addOutput(outputEl, `Command not found: ${command}. Type 'help' for available commands.`);
+                        }
+
+                        // Recreate input line after command
+                        const isMobile = inputEl.id.includes('mobile');
+                        const newInputEl = createInputLine(outputEl, isMobile);
+
+                        // Transfer event handlers to new input
+                        setupInputHandlers(newInputEl, outputEl);
+                        newInputEl.focus();
+                        updateCursor(newInputEl);
+                    } else if (e.ctrlKey && e.key === 'c') {
+                        // Ctrl+C to cancel current input
+                        e.preventDefault();
+                        if (inputEl.value) {
+                            addOutput(outputEl, inputEl.value + '^C', true);
+                            // Recreate input line
+                            const isMobile = inputEl.id.includes('mobile');
+                            const newInputEl = createInputLine(outputEl, isMobile);
+                            setupInputHandlers(newInputEl, outputEl);
+                            newInputEl.focus();
+                            updateCursor(newInputEl);
+                        }
+                    } else if (e.ctrlKey && e.key === 'l') {
+                        // Ctrl+L to clear screen
+                        e.preventDefault();
+                        outputEl.innerHTML = '';
+                        addOutput(outputEl, 'Terminal cleared. Welcome back!');
+                        // Recreate input line
+                        const isMobile = inputEl.id.includes('mobile');
+                        const newInputEl = createInputLine(outputEl, isMobile);
+                        setupInputHandlers(newInputEl, outputEl);
+                        newInputEl.focus();
+                        updateCursor(newInputEl);
+                    }
+
+                    // Update cursor position after any key press
+                    setTimeout(() => updateCursor(inputEl), 10);
+            }
+
+            // Add minimal startup message
+            function addStartupMessage(outputEl, isMobile = false) {
+                setTimeout(() => {
+                    addOutput(outputEl, `Welcome to Shajith's Terminal
+Type 'help' for available commands`);
+                    // Recreate input line after startup message
+                    const inputEl = createInputLine(outputEl, isMobile);
+                    setupInputHandlers(inputEl, outputEl);
+                    inputEl.focus();
+                    updateCursor(inputEl);
+                }, 500);
+            }
+
+            if (terminalOutput) {
+                addStartupMessage(terminalOutput, false);
+                console.log('Desktop terminal initialized');
+            }
+
+            if (terminalOutputMobile) {
+                addStartupMessage(terminalOutputMobile, true);
+                console.log('Mobile terminal initialized');
+            }
+        }
+
+        // Initialize terminal after a delay
+        setTimeout(initTerminalDirect, 1500);
 
         // Floating navbar enhancements and scroll animations
         document.addEventListener('DOMContentLoaded', function() {

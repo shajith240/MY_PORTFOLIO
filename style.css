@@ -21,7 +21,6 @@ body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
   margin: 0;
-  padding-top: 100px; /* Account for floating navbar */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -30,7 +29,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px; /* Increased from 1200px for better width utilization */
   margin: 0 auto;
   padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
   box-sizing: border-box;
@@ -404,6 +403,9 @@ body:not(.light-mode) #theme-toggle:hover {
   text-align: left;
   background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
   overflow: hidden;
+  /* Extend to very top of viewport */
+  margin-top: 0;
+  padding-top: 0;
 }
 
 #starfield-canvas {
@@ -423,8 +425,9 @@ body:not(.light-mode) #theme-toggle:hover {
   gap: calc(var(--spacing-unit) * 12);
   position: relative;
   z-index: 1;
-  padding-top: calc(var(--spacing-unit) * 8);
+  padding-top: calc(100px + var(--spacing-unit) * 4); /* Account for floating navbar + spacing */
   padding-bottom: calc(var(--spacing-unit) * 8);
+  max-width: 1200px; /* Constrain hero section width for better proportions */
 }
 
 .hero-content {
@@ -642,7 +645,7 @@ body:not(.light-mode) #theme-toggle:hover {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: calc(var(--spacing-unit) * 4);
-  max-width: 1200px;
+  width: 100%; /* Use full container width */
   margin: 0 auto;
 }
 
@@ -653,6 +656,10 @@ body:not(.light-mode) #theme-toggle:hover {
   border: 1px solid var(--color-border);
   text-align: center;
   transition: all 0.2s ease;
+  height: 100%; /* Ensure consistent height across grid items */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .skill-card:hover {
@@ -804,6 +811,15 @@ body:not(.light-mode) #theme-toggle:hover {
   background: var(--color-background);
 }
 
+.experience-section .container {
+  max-width: 1200px; /* Constrain experience section to original width */
+}
+
+/* GitHub Activity Section - Maintain original width constraints */
+.github-section .container {
+  max-width: 1200px; /* Constrain GitHub section to original width */
+}
+
 .experience-section h2 {
   font-size: clamp(2.5em, 5vw, 3.5em);
   font-weight: 700;
@@ -818,7 +834,7 @@ body:not(.light-mode) #theme-toggle:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: calc(var(--spacing-unit) * 5);
-  max-width: 1200px;
+  max-width: 1200px; /* Restored original max-width constraint */
   margin: 0 auto;
 }
 
@@ -961,6 +977,311 @@ body.light-mode #theme-toggle:hover {
   background: var(--color-background);
 }
 
+/* Terminal Interface Styles */
+.terminal-wrapper {
+  flex: 0 0 65%;
+}
+
+.terminal-container {
+  background: #000000;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  border: 1px solid #2a2a2a;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.terminal-header {
+  background: #1a1a1a;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #2a2a2a;
+  min-height: 28px;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.terminal-control:hover {
+  transform: scale(1.1);
+}
+
+.terminal-control.close {
+  background: #ff5f56;
+}
+
+.terminal-control.close:hover::after {
+  content: '×';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4a0000;
+  font-size: 8px;
+  font-weight: bold;
+}
+
+.terminal-control.minimize {
+  background: #ffbd2e;
+}
+
+.terminal-control.minimize:hover::after {
+  content: '−';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4a3500;
+  font-size: 8px;
+  font-weight: bold;
+}
+
+.terminal-control.maximize {
+  background: #27ca3f;
+}
+
+.terminal-control.maximize:hover::after {
+  content: '□';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a2a0f;
+  font-size: 6px;
+  font-weight: bold;
+}
+
+.terminal-title {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.terminal-body {
+  padding: 12px;
+  background: #000000;
+  height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.terminal-content {
+  height: auto;
+  min-height: 100%;
+}
+
+.terminal-output {
+  margin-bottom: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #333 #000;
+}
+
+.terminal-output::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-output::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+.terminal-line {
+  margin-bottom: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.terminal-prompt {
+  color: #00FF00;
+  font-weight: bold;
+  margin-right: 4px;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.terminal-text {
+  color: #00FF00;
+  word-break: break-word;
+  line-height: 1.2;
+  font-family: inherit;
+}
+
+.terminal-text a {
+  color: #00ccff;
+  text-decoration: underline;
+}
+
+.terminal-text a:hover {
+  color: #66ddff;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #00FF00;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  width: 0;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  caret-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.terminal-input:focus {
+  background: transparent;
+  outline: none;
+}
+
+.terminal-cursor {
+  color: #00FF00;
+  animation: blink 1s infinite;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Mobile terminal adjustments */
+.mobile-terminal {
+  margin-top: 20px;
+}
+
+.mobile-terminal .terminal-body {
+  height: 280px;
+  padding: 10px;
+}
+
+.mobile-terminal .terminal-output {
+  font-size: 13px;
+}
+
+.mobile-terminal .terminal-prompt,
+.mobile-terminal .terminal-text,
+.mobile-terminal .terminal-input {
+  font-size: 13px;
+}
+
+.mobile-terminal .terminal-header {
+  padding: 6px 12px;
+  min-height: 24px;
+}
+
+.mobile-terminal .terminal-title {
+  font-size: 12px;
+}
+
+.mobile-terminal .terminal-input-line {
+  font-size: 13px;
+}
+
+/* Responsive terminal adjustments */
+@media (max-width: 768px) {
+  .terminal-wrapper {
+    flex: none;
+    width: 100%;
+  }
+
+  .terminal-container {
+    margin: 0;
+  }
+
+  .terminal-body {
+    padding: 12px;
+    min-height: 250px;
+    max-height: 300px;
+  }
+
+  .terminal-prompt,
+  .terminal-text,
+  .terminal-input {
+    font-size: 13px;
+  }
+
+  .terminal-header {
+    padding: 6px 12px;
+  }
+
+  .terminal-title {
+    font-size: 12px;
+  }
+
+  .terminal-control {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal-body {
+    padding: 8px;
+    min-height: 200px;
+    max-height: 250px;
+  }
+
+  .terminal-prompt,
+  .terminal-text,
+  .terminal-input {
+    font-size: 12px;
+  }
+
+  .terminal-line {
+    margin-bottom: 2px;
+  }
+}
+
 .contact-section h2 {
   font-size: clamp(2.5em, 5vw, 3.5em);
   font-weight: 700;
@@ -994,6 +1315,7 @@ body.light-mode #theme-toggle:hover {
   line-height: 1.6;
 }
 
+/* Legacy contact form wrapper - now replaced by terminal */
 .contact-form-wrapper {
   flex: 0 0 65%;
 }
@@ -1274,10 +1596,7 @@ body.light-mode #theme-toggle:hover {
     border-bottom: 2px solid transparent;
   }
 
-  /* Adjust body padding for mobile floating navbar */
-  body {
-    padding-top: 80px;
-  }
+
 
   .navbar .logo {
     font-size: 1.2em;
@@ -1345,6 +1664,15 @@ body.light-mode #theme-toggle:hover {
   .skills-grid {
     grid-template-columns: 1fr;
     gap: calc(var(--spacing-unit) * 2);
+  }
+
+  .skill-card {
+    height: auto; /* Override desktop height: 100% */
+    display: block; /* Override desktop flexbox */
+    justify-content: initial; /* Reset flexbox property */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin-bottom: calc(var(--spacing-unit) * 1); /* Add bottom margin for extra spacing */
   }
 
   .portfolio-grid {
@@ -2009,8 +2337,9 @@ body.light-mode .light-theme-soft-skills-icon {
     align-items: center;
     text-align: center;
     gap: calc(var(--spacing-unit) * 3);
-    padding-top: calc(var(--spacing-unit) * 4);
+    padding-top: calc(80px + var(--spacing-unit) * 2); /* Account for mobile floating navbar + spacing */
     padding-bottom: calc(var(--spacing-unit) * 4);
+    max-width: 100%; /* Use full width on mobile */
   }
 
   /* Photo-first approach: profile photo creates visual impact first */
@@ -2137,11 +2466,19 @@ body.light-mode .light-theme-soft-skills-icon {
   .skills-grid {
     grid-template-columns: 1fr;
     gap: calc(var(--spacing-unit) * 3);
+    width: 100%; /* Ensure full width utilization on mobile */
+    max-width: none; /* Remove any max-width constraints */
   }
 
   .skill-card {
     padding: calc(var(--spacing-unit) * 3);
     text-align: center;
+    height: auto; /* Override desktop height: 100% */
+    display: block; /* Override desktop flexbox */
+    justify-content: initial; /* Reset flexbox property */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin-bottom: calc(var(--spacing-unit) * 1); /* Add bottom margin for extra spacing */
   }
 
   .skill-title {
@@ -2397,8 +2734,9 @@ body.light-mode .light-theme-soft-skills-icon {
   /* Hero Section */
   .hero-section .container {
     gap: calc(var(--spacing-unit) * 6);
-    padding-top: calc(var(--spacing-unit) * 6);
+    padding-top: calc(100px + var(--spacing-unit) * 3); /* Account for floating navbar + spacing */
     padding-bottom: calc(var(--spacing-unit) * 6);
+    max-width: 1200px; /* Maintain contained width on tablet */
   }
 
   .hero-content h1 {
@@ -2487,6 +2825,7 @@ body.light-mode .light-theme-soft-skills-icon {
 
   .hero-section .container {
     gap: calc(var(--spacing-unit) * 8);
+    max-width: 1200px; /* Maintain contained width on small desktop */
   }
 
   .hero-content h1 {
@@ -2525,6 +2864,7 @@ body.light-mode .light-theme-soft-skills-icon {
 
   .hero-section .container {
     gap: calc(var(--spacing-unit) * 12);
+    max-width: 1200px; /* Maintain contained width on large desktop */
   }
 
   .hero-content h1 {
@@ -2546,20 +2886,37 @@ body.light-mode .light-theme-soft-skills-icon {
 
   .skills-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: calc(var(--spacing-unit) * 4);
+    gap: calc(var(--spacing-unit) * 5); /* Increased gap for better spacing */
   }
 
   .experience-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: calc(var(--spacing-unit) * 4);
+    gap: calc(var(--spacing-unit) * 4); /* Reverted to original spacing */
+  }
+
+  /* Enhanced card padding for large desktop - Skills only */
+  .skill-card {
+    padding: calc(var(--spacing-unit) * 4.5);
   }
 }
 
 /* Ultra-wide screens (1400px and above) */
 @media (min-width: 1400px) {
   .container {
-    max-width: 1400px;
+    max-width: 1600px; /* Further increased for ultra-wide screens */
     padding: calc(var(--spacing-unit) * 5);
+  }
+
+  /* Enhanced Skills Section for Ultra-wide */
+  .skills-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(var(--spacing-unit) * 6); /* Even more spacing on ultra-wide */
+  }
+
+  /* Experience Section for Ultra-wide - Reverted */
+  .experience-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(var(--spacing-unit) * 4); /* Reverted to original spacing */
   }
 
   .hero-content h1 {
@@ -2576,6 +2933,30 @@ body.light-mode .light-theme-soft-skills-icon {
   }
 }
 
+/* Extra Large Desktop Screens (1600px and above) */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1800px;
+    padding: calc(var(--spacing-unit) * 6);
+  }
+
+  /* Skills Section - Optimized for very wide screens */
+  .skills-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(var(--spacing-unit) * 8);
+  }
+
+  /* Experience Section - Reverted to original constraints */
+  .experience-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(var(--spacing-unit) * 4); /* Reverted to original spacing */
+  }
+
+  .skill-card {
+    padding: calc(var(--spacing-unit) * 5);
+  }
+}
+
 /* Landscape Mobile Optimization */
 @media (max-width: 768px) and (orientation: landscape) {
   .hero-section {
@@ -2586,8 +2967,9 @@ body.light-mode .light-theme-soft-skills-icon {
   .hero-section .container {
     flex-direction: row;
     gap: calc(var(--spacing-unit) * 4);
-    padding-top: calc(var(--spacing-unit) * 3);
+    padding-top: calc(80px + var(--spacing-unit) * 2); /* Account for mobile floating navbar + spacing */
     padding-bottom: calc(var(--spacing-unit) * 3);
+    max-width: 100%; /* Use full width on mobile landscape */
   }
 
   .hero-content h1 {
@@ -3049,6 +3431,9 @@ body.light-mode .mobile-nav-menu a:hover {
 
   .skill-card {
     padding: calc(var(--spacing-unit) * 4);
+    height: auto; /* Override desktop height: 100% for tablet */
+    display: block; /* Override desktop flexbox for tablet */
+    justify-content: initial; /* Reset flexbox property */
   }
 }
 
@@ -3132,8 +3517,9 @@ body.light-mode .mobile-nav-menu a:hover {
 
   .hero-section .container {
     gap: calc(var(--spacing-unit) * 2);
-    padding-top: calc(var(--spacing-unit) * 3);
+    padding-top: calc(80px + var(--spacing-unit) * 2); /* Account for mobile floating navbar + spacing */
     padding-bottom: calc(var(--spacing-unit) * 3);
+    max-width: 100%; /* Use full width on extra small devices */
   }
 
   .hero-content h1 {
