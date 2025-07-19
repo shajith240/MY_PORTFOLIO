@@ -874,7 +874,7 @@ Try 'projects' to see some real-world automation magic I've built.`);
 
                         // Transfer event handlers to new input
                         setupInputHandlers(newInputEl, outputEl);
-                        newInputEl.focus();
+                        newInputEl.focus({ preventScroll: true });
                         updateCursor(newInputEl);
                     } else if (e.ctrlKey && e.key === 'c') {
                         // Ctrl+C to cancel current input
@@ -885,7 +885,7 @@ Try 'projects' to see some real-world automation magic I've built.`);
                             const isMobile = inputEl.id.includes('mobile');
                             const newInputEl = createInputLine(outputEl, isMobile);
                             setupInputHandlers(newInputEl, outputEl);
-                            newInputEl.focus();
+                            newInputEl.focus({ preventScroll: true });
                             updateCursor(newInputEl);
                         }
                     } else if (e.ctrlKey && e.key === 'l') {
@@ -897,7 +897,7 @@ Try 'projects' to see some real-world automation magic I've built.`);
                         const isMobile = inputEl.id.includes('mobile');
                         const newInputEl = createInputLine(outputEl, isMobile);
                         setupInputHandlers(newInputEl, outputEl);
-                        newInputEl.focus();
+                        newInputEl.focus({ preventScroll: true });
                         updateCursor(newInputEl);
                     }
 
@@ -913,7 +913,7 @@ Type 'help' for available commands`);
                     // Recreate input line after startup message
                     const inputEl = createInputLine(outputEl, isMobile);
                     setupInputHandlers(inputEl, outputEl);
-                    inputEl.focus();
+                    inputEl.focus({ preventScroll: true });
                     updateCursor(inputEl);
                 }, 500);
             }
