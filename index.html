@@ -715,120 +715,21 @@
 
                         // Process command
                         if (command === 'help') {
-                            addOutput(outputEl, `Available commands:
-  help      - show this help message
-  about     - display information about Shajith
-  contact   - show contact information
-  skills    - list technical skills
-  projects  - show portfolio projects
-  social    - display social media links
-  resume    - show resume information
-  whoami    - display current user info
-  clear     - clear the terminal screen
-  ls/dir    - list directory contents
-  pwd       - show current directory
-  date      - display current date and time
-  history   - show command history`);
+                            addOutput(outputEl, `Available commands: help, about, contact, skills, projects, social, resume, whoami, clear, ls, dir, pwd, date, history`);
                         } else if (command === 'about') {
-                            addOutput(outputEl, `About Shajith:
-
-AI Automation Specialist and B.Tech Computer Science student at IIT(ISM) Dhanbad.
-Specialized in designing and deploying automation solutions using n8n, Zapier, and Make.com.
-
-Key achievements:
-- 100+ automation templates developed
-- 95% client satisfaction rate
-- Significant reduction in manual processes for clients
-
-Current focus areas:
-- Artificial Intelligence and Machine Learning
-- Business Process Automation
-- Cybersecurity
-- Web Development`);
+                            addOutput(outputEl, `<div class="command-output"><span class="heading">About Shajith:</span><br><br>AI Automation Specialist and B.Tech Computer Science student at IIT(ISM) Dhanbad.<br>Specialized in designing and deploying automation solutions using n8n, Zapier, and Make.com.<br><br><span class="heading">Key achievements:</span><br>- 100+ automation templates developed<br>- 95% client satisfaction rate<br>- Significant reduction in manual processes for clients<br><br><span class="heading">Current focus areas:</span><br>- Artificial Intelligence and Machine Learning<br>- Business Process Automation<br>- Cybersecurity<br>- Web Development</div>`);
                         } else if (command === 'contact') {
-                            addOutput(outputEl, `Contact Information:
-  Email: 24je0598@iitism.ac.in
-  Location: IIT(ISM) Dhanbad, India
-  GitHub: @shajith240
-  LinkedIn: Available upon request
-
-Open to discussing AI automation, web development, and project collaborations.`);
+                            addOutput(outputEl, `<div class="command-output"><span class="heading">Contact Information:</span><br>  <span class="heading">Email:</span> <span class="value">24je0598@iitism.ac.in</span><br>  <span class="heading">Location:</span> <span class="value">IIT(ISM) Dhanbad, India</span><br>  <span class="heading">GitHub:</span> <a href="https://github.com/shajith240" target="_blank">@shajith240</a><br>  <span class="heading">LinkedIn:</span> <span class="value">Available upon request</span><br><br>Open to discussing AI automation, web development, and project collaborations.</div>`);
                         } else if (command === 'skills') {
-                            addOutput(outputEl, `Technical Skills:
-
-Programming Languages:
-  Python          - Expert
-  JavaScript      - Advanced
-  HTML5/CSS3      - Advanced
-
-Automation & Tools:
-  n8n Automation  - Expert
-  Zapier          - Advanced
-  Make.com        - Advanced
-  API Integration - Expert
-
-Concepts & Fields:
-  Artificial Intelligence      - Advanced
-  Algorithms & Data Structures - Intermediate
-  Cybersecurity               - Intermediate
-  Web Development             - Advanced`);
+                            addOutput(outputEl, `<div class="command-output"><span class="heading">Technical Skills:</span><br><br><span class="heading">Programming Languages:</span><br>  Python          - <span class="value">Expert</span><br>  JavaScript      - <span class="value">Advanced</span><br>  HTML5/CSS3      - <span class="value">Advanced</span><br><br><span class="heading">Automation & Tools:</span><br>  n8n Automation  - <span class="value">Expert</span><br>  Zapier          - <span class="value">Advanced</span><br>  Make.com        - <span class="value">Advanced</span><br>  API Integration - <span class="value">Expert</span><br><br><span class="heading">Concepts & Fields:</span><br>  Artificial Intelligence      - <span class="value">Advanced</span><br>  Algorithms & Data Structures - <span class="value">Intermediate</span><br>  Cybersecurity               - <span class="value">Intermediate</span><br>  Web Development             - <span class="value">Advanced</span></div>`);
                         } else if (command === 'projects') {
-                            addOutput(outputEl, `Featured Projects:
-
-1. AGENCY - AI Automation Agency
-   Focus: Business process automation and AI solutions
-   Tech: AI Automation, Process Optimization
-   Live: https://sharpflow.xyz/
-   GitHub: https://github.com/shajith240/AGENCY
-
-2. TYPESPRINT - Typing Practice Platform
-   Focus: Improve typing speed and accuracy
-   Tech: JavaScript, Web Development
-   Status: Under Development
-
-3. INVOICE-SCRAPING-SYSTEM
-   Focus: Automated invoice processing
-   Tech: Python, Data Extraction, Automation
-
-4. WIFI-AUTOMATION
-   Focus: Automated college Wi-Fi login
-   Tech: Python, Automation, Scripting
-
-Visit my GitHub for more: https://github.com/shajith240`);
+                            addOutput(outputEl, `<div class="command-output"><span class="heading">Featured Projects:</span><br><br>1. <span class="value">AGENCY - AI Automation Agency</span><br>   Focus: Business process automation and AI solutions<br>   Tech: AI Automation, Process Optimization<br>   Live: <a href="https://sharpflow.xyz/" target="_blank">https://sharpflow.xyz/</a><br>   GitHub: <a href="https://github.com/shajith240/AGENCY" target="_blank">https://github.com/shajith240/AGENCY</a><br><br>2. <span class="value">TYPESPRINT - Typing Practice Platform</span><br>   Focus: Improve typing speed and accuracy<br>   Tech: JavaScript, Web Development<br>   Status: Under Development<br><br>3. <span class="value">INVOICE-SCRAPING-SYSTEM</span><br>   Focus: Automated invoice processing<br>   Tech: Python, Data Extraction, Automation<br><br>4. <span class="value">WIFI-AUTOMATION</span><br>   Focus: Automated college Wi-Fi login<br>   Tech: Python, Automation, Scripting<br><br>Visit my GitHub for more: <a href="https://github.com/shajith240" target="_blank">https://github.com/shajith240</a></div>`);
                         } else if (command === 'social') {
-                            addOutput(outputEl, `Connect with me:
-
-Professional:
-  GitHub: https://github.com/shajith240
-  LinkedIn: [Connect for professional opportunities]
-  Email: 24je0598@iitism.ac.in
-
-Portfolio:
-  Website: You're already here!
-  Live Projects: Check out my work above
-
-Let's build something amazing together!`);
+                            addOutput(outputEl, `<div class="command-output"><span class="heading">Connect with me:</span><br><br><span class="heading">Professional:</span><br>  GitHub: <a href="https://github.com/shajith240" target="_blank">https://github.com/shajith240</a><br>  LinkedIn: <span class="value">[Connect for professional opportunities]</span><br>  Email: <span class="value">24je0598@iitism.ac.in</span><br><br><span class="heading">Portfolio:</span><br>  Website: You're already here!<br>  Live Projects: Check out my work above<br><br>Let's build something amazing together!</div>`);
                         } else if (command === 'resume') {
-                            addOutput(outputEl, `Resume/CV Information:
-
-Current Status: B.Tech Computer Science Student at IIT(ISM) Dhanbad
-Specialization: AI Automation & Web Development
-
-Key Achievements:
-  100+ AI automation templates developed
-  95% client satisfaction rate
-  60-80% reduction in manual processes for clients
-  10+ hours/week saved for businesses
-
-For detailed resume, contact: 24je0598@iitism.ac.in`);
+                            addOutput(outputEl, `<div class="command-output"><span class="heading">Resume/CV Information:</span><br><br><span class="heading">Current Status:</span> B.Tech Computer Science Student at IIT(ISM) Dhanbad<br><span class="heading">Specialization:</span> AI Automation & Web Development<br><br><span class="heading">Key Achievements:</span><br>  100+ AI automation templates developed<br>  95% client satisfaction rate<br>  60-80% reduction in manual processes for clients<br>  10+ hours/week saved for businesses<br><br>For detailed resume, contact: <span class="value">24je0598@iitism.ac.in</span></div>`);
                         } else if (command === 'whoami') {
-                            addOutput(outputEl, `Current User: shajith
-Home Directory: /home/shajith/portfolio
-System: Portfolio Terminal v1.0
-Location: IIT(ISM) Dhanbad, India
-Status: AI Automation Specialist & CS Student
-
-You are exploring Shajith's interactive portfolio terminal.`);
+                            addOutput(outputEl, `<div class="command-output"><span class="heading">Current User:</span> <span class="value">shajith</span><br><span class="heading">Home Directory:</span> <span class="value">/home/shajith/portfolio</span><br><span class="heading">System:</span> <span class="value">Portfolio Terminal v1.0</span><br><span class="heading">Location:</span> <span class="value">IIT(ISM) Dhanbad, India</span><br><span class="heading">Status:</span> <span class="value">AI Automation Specialist & CS Student</span><br><br>You are exploring Shajith's interactive portfolio terminal.</div>`);
                         } else if (command === 'clear') {
                             outputEl.innerHTML = '';
                             addOutput(outputEl, 'Terminal cleared. Welcome back!');

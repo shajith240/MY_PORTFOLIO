@@ -1141,8 +1141,18 @@ body.light-mode #theme-toggle:hover {
   text-decoration: underline;
 }
 
-.terminal-text a:hover {
-  color: #66ddff;
+.terminal-text .command-output {
+  display: block;
+  white-space: pre-wrap;
+}
+
+.terminal-text .command-output .heading {
+  color: #00FF00;
+  font-weight: bold;
+}
+
+.terminal-text .command-output .value {
+  color: #FFFFFF;
 }
 
 .terminal-input-line {
